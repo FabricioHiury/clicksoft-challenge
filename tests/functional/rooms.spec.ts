@@ -50,6 +50,11 @@ test.group('Rooms Controller', (group) => {
   })
 
   test('should include teacher information in room listing', async ({ client, assert }) => {
+    // Limpar dados existentes
+    await Database.rawQuery('DELETE FROM student_rooms')
+    await Database.rawQuery('DELETE FROM rooms')
+    await Database.rawQuery('DELETE FROM teachers')
+    
     const teacher = await TeacherFactory.create()
     await RoomFactory.merge({ 
       teacherId: teacher.id,
@@ -68,6 +73,12 @@ test.group('Rooms Controller', (group) => {
   })
 
   test('should include students information in all rooms listing', async ({ client, assert }) => {
+    // Limpar dados existentes
+    await Database.rawQuery('DELETE FROM student_rooms')
+    await Database.rawQuery('DELETE FROM rooms')
+    await Database.rawQuery('DELETE FROM teachers')
+    await Database.rawQuery('DELETE FROM students')
+    
     const teacher = await TeacherFactory.create()
     const room = await RoomFactory.merge({ teacherId: teacher.id }).create()
     const students = await StudentFactory.createMany(2)
@@ -86,6 +97,11 @@ test.group('Rooms Controller', (group) => {
   })
 
   test('should handle empty available rooms list', async ({ client, assert }) => {
+    // Limpar dados existentes
+    await Database.rawQuery('DELETE FROM student_rooms')
+    await Database.rawQuery('DELETE FROM rooms')
+    await Database.rawQuery('DELETE FROM teachers')
+    
     // Criar apenas salas indisponíveis
     const teacher = await TeacherFactory.create()
     await RoomFactory.merge({ 
@@ -106,6 +122,11 @@ test.group('Rooms Controller', (group) => {
   })
 
   test('should respect pagination limits', async ({ client, assert }) => {
+    // Limpar dados existentes
+    await Database.rawQuery('DELETE FROM student_rooms')
+    await Database.rawQuery('DELETE FROM rooms')
+    await Database.rawQuery('DELETE FROM teachers')
+    
     const teacher = await TeacherFactory.create()
     await RoomFactory.merge({ 
       teacherId: teacher.id,
@@ -126,6 +147,11 @@ test.group('Rooms Controller', (group) => {
   })
 
   test('should order rooms by room number', async ({ client, assert }) => {
+    // Limpar dados existentes
+    await Database.rawQuery('DELETE FROM student_rooms')
+    await Database.rawQuery('DELETE FROM rooms')
+    await Database.rawQuery('DELETE FROM teachers')
+    
     const teacher = await TeacherFactory.create()
     // Criar salas com números específicos
     await RoomFactory.merge({ 

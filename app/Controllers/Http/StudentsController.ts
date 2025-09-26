@@ -177,8 +177,6 @@ export default class StudentsController {
           currentPage: students.currentPage,
           lastPage: students.lastPage,
           firstPage: 1,
-          nextPageUrl: students.hasMorePages ? `${request.url()}?page=${students.currentPage + 1}` : null,
-          previousPageUrl: students.currentPage > 1 ? `${request.url()}?page=${students.currentPage - 1}` : null
         },
         timestamp: new Date().toISOString()
       })

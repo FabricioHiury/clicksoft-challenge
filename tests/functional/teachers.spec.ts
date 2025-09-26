@@ -47,6 +47,11 @@ test.group('Teachers Controller', (group) => {
   })
 
   test('should create room for teacher', async ({ client, assert }) => {
+    // Limpar dados existentes
+    await Database.rawQuery('DELETE FROM student_rooms')
+    await Database.rawQuery('DELETE FROM rooms')
+    await Database.rawQuery('DELETE FROM teachers')
+    
     const teacher = await TeacherFactory.create()
 
     const roomData = {

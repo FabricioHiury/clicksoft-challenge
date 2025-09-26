@@ -215,16 +215,6 @@ const options: swaggerJSDoc.Options = {
                   type: 'integer',
                   description: 'Primeira página'
                 },
-                nextPageUrl: {
-                  type: 'string',
-                  nullable: true,
-                  description: 'URL da próxima página'
-                },
-                previousPageUrl: {
-                  type: 'string',
-                  nullable: true,
-                  description: 'URL da página anterior'
-                }
               }
             },
             timestamp: {

@@ -14,8 +14,6 @@ export interface PaginationMeta {
   currentPage: number
   lastPage: number
   firstPage: number
-  nextPageUrl: string | null
-  previousPageUrl: string | null
 }
 
 export interface PaginatedResponse<T> {
@@ -46,12 +44,8 @@ export class PaginationHelper {
     options: PaginationOptions = {}
   ): Promise<PaginatedResponse<any>> {
     const { page, limit } = this.getParams(ctx, options)
-    const { request } = ctx
 
     const result = await query.paginate(page, limit)
-
-    const baseUrl = `${request.protocol()}://${request.header('host')}${request.url().split('?')[0]}`
-    const buildUrl = (pageNum: number) => `${baseUrl}?page=${pageNum}&limit=${limit}`
 
     const meta: PaginationMeta = {
       total: result.total,
@@ -59,8 +53,6 @@ export class PaginationHelper {
       currentPage: result.currentPage,
       lastPage: result.lastPage,
       firstPage: 1,
-      nextPageUrl: result.currentPage < result.lastPage ? buildUrl(result.currentPage + 1) : null,
-      previousPageUrl: result.currentPage > 1 ? buildUrl(result.currentPage - 1) : null
     }
 
     return {

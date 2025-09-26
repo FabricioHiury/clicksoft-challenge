@@ -12,8 +12,6 @@ export class GetAvailableRoomsUseCase {
       currentPage: number
       lastPage: number
       firstPage: number
-      nextPageUrl: string | null
-      previousPageUrl: string | null
     }
   }> {
     const rooms = await this.roomRepository.findAvailable(page, perPage)
@@ -41,8 +39,6 @@ export class GetAvailableRoomsUseCase {
         currentPage: rooms.currentPage,
         lastPage: rooms.lastPage,
         firstPage: 1,
-        nextPageUrl: rooms.hasMorePages ? `?page=${rooms.currentPage + 1}` : null,
-        previousPageUrl: rooms.currentPage > 1 ? `?page=${rooms.currentPage - 1}` : null
       }
     }
   }

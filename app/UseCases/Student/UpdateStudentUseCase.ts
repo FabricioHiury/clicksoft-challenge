@@ -24,9 +24,9 @@ export class UpdateStudentUseCase {
       name: student.name,
       email: student.email,
       registration: student.registration,
-      birth_date: student.birthDate.toString(),
-      created_at: student.createdAt.toString(),
-      updated_at: student.updatedAt.toString()
+      birth_date: student.birthDate?.toString() || '',
+      created_at: student.createdAt?.toString() || '',
+      updated_at: student.updatedAt?.toString() || ''
     }
   }
 }

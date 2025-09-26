@@ -71,10 +71,6 @@ export default class TeachersController {
             current_page: teachers.currentPage,
             last_page: teachers.lastPage,
             first_page: 1,
-            first_page_url: `${ctx.request.url()}?page=1&perPage=${perPage}`,
-            last_page_url: `${ctx.request.url()}?page=${teachers.lastPage}&perPage=${perPage}`,
-            next_page_url: teachers.currentPage < teachers.lastPage ? `${ctx.request.url()}?page=${teachers.currentPage + 1}&perPage=${perPage}` : null,
-            previous_page_url: teachers.currentPage > 1 ? `${ctx.request.url()}?page=${teachers.currentPage - 1}&perPage=${perPage}` : null
           }
         },
         timestamp: new Date().toISOString()
@@ -170,7 +166,7 @@ export default class TeachersController {
       const createData: CreateRoomDTO = {
         room_number: payload.roomNumber,
         capacity: payload.capacity,
-        teacher_id: parseInt(ctx.params.teacherId || ctx.params.id)
+        teacher_id: parseInt(ctx.params.id)
       }
 
       const room = await this.container.createRoomUseCase.execute(createData)
@@ -195,7 +191,7 @@ export default class TeachersController {
   public async updateRoom({ params, request, response }: HttpContextContract) {
     try {
       const roomId = parseInt(params.roomId)
-      const teacherId = parseInt(params.teacherId)
+      const teacherId = parseInt(params.id)
       const payload = await request.validate(RoomValidator)
       
       const updateData: UpdateRoomDTO = {
@@ -226,7 +222,7 @@ export default class TeachersController {
   public async deleteRoom({ params, response }: HttpContextContract) {
     try {
       const roomId = parseInt(params.roomId)
-      const teacherId = parseInt(params.teacherId)
+      const teacherId = parseInt(params.id)
 
       await this.container.deleteRoomUseCase.execute(roomId, teacherId)
 
@@ -248,7 +244,7 @@ export default class TeachersController {
   // RF07: Permitir que professor consulte suas salas
   public async getRooms({ params, response }: HttpContextContract) {
     try {
-      const teacherId = parseInt(params.teacherId)
+      const teacherId = parseInt(params.id)
       const rooms = await this.container.getRoomsUseCase.execute(teacherId)
 
       return response.json({
@@ -270,7 +266,7 @@ export default class TeachersController {
   // RF08: Permitir que professor aloque alunos em suas salas
   public async allocateStudent({ params, request, response }: HttpContextContract) {
     try {
-      const teacherId = parseInt(params.teacherId)
+      const teacherId = parseInt(params.id)
       const payload = await request.validate(StudentAllocationValidator)
       
       const allocationData = {
@@ -299,7 +295,7 @@ export default class TeachersController {
   // RF08: Permitir que professor desaloque alunos de suas salas
   public async deallocateStudent({ params, request, response }: HttpContextContract) {
     try {
-      const teacherId = parseInt(params.teacherId)
+      const teacherId = parseInt(params.id)
       const payload = await request.validate(StudentAllocationValidator)
       
       const deallocationData = {
@@ -328,7 +324,7 @@ export default class TeachersController {
   // RF07: Permitir que professor consulte alunos de uma sala específica
   public async getRoomStudents({ params, response }: HttpContextContract) {
     try {
-      const teacherId = parseInt(params.teacherId)
+      const teacherId = parseInt(params.id)
       const roomId = parseInt(params.roomId)
 
       const result = await this.container.getRoomStudentsUseCase.execute(teacherId, roomId)
