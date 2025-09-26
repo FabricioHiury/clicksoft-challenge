@@ -151,7 +151,7 @@ clicksoft-challenge/
 ### 1. Clone o Repositório
 
 ```bash
-git clone <url-do-repositorio>
+git clone https://github.com/FabricioHiury/clicksoft-challenge
 cd clicksoft-challenge
 ```
 
@@ -193,7 +193,7 @@ docker-compose up -d
 ### 5. Execute as Migrations
 
 ```bash
-node ace migration:run
+npm run migration:run
 ```
 
 ### 6. Inicie o Servidor
@@ -361,8 +361,8 @@ Acesse o Adminer em: `http://localhost:8080`
 ## 📞 Contato
 
 **Fabricio Hiury**  
-📧 fabriciohiury@email.com  
-🔗 [LinkedIn](https://linkedin.com/in/fabriciohiury)  
+📧 fabricio.feo@outlook.com  
+🔗 [LinkedIn](https://www.linkedin.com/in/fabricio-hiury/)  
 🐙 [GitHub](https://github.com/fabriciohiury)
 
 ---
